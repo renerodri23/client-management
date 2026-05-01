@@ -22,7 +22,6 @@ const AppContent = () => {
 
   return (
     <>
-      {/* 2. La Navbar ahora es inteligente y sabe cuándo esconderse */}
       {!hideNavbar && <Navbar />}
       
       <Routes>

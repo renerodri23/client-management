@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import api from '../api/axiosConfig';
 import { TIPO_DIRECCION, TIPO_DOCUMENTO } from '../api/constants';
+import { useAlert } from '../context/AlertContext';
 
 const AddUserModal = ({ onClose, onUserCreated }: { onClose: () => void, onUserCreated: () => void }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [generalError, setGeneralError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const { showAlert } = useAlert();
 
   const [formData, setFormData] = useState({
     nombre: '',
@@ -24,9 +26,9 @@ const AddUserModal = ({ onClose, onUserCreated }: { onClose: () => void, onUserC
 
     try {
       await api.post('/v1/users', formData);
-      alert("Usuario creado con éxito");
-      onUserCreated(); // Recarga la tabla
-      onClose();       // Cierra el modal
+      showAlert("Usuario creado con éxito", "success");
+      onUserCreated(); 
+      onClose();       
     } catch (error: any) {
       const data = error.response?.data;
       if (data?.errors) {

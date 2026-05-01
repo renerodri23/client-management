@@ -11,7 +11,6 @@ import java.util.UUID;
 
 public interface SpringDataUserRepository extends JpaRepository<UserEntity, UUID> {
 
-    // El JOIN FETCH "fuerza" a traer las listas en una sola consulta SQL
     @Query("SELECT u FROM UserEntity u LEFT JOIN FETCH u.direcciones LEFT JOIN FETCH u.documentos WHERE u.email = :email")
     Optional<UserEntity> findByEmail(@Param("email") String email);
 

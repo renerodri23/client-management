@@ -49,7 +49,6 @@ public class UserUpdateService implements UserUpdateUseCase {
         var user = userRepository.findById(command.userUuid())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Creamos la nueva dirección
         Direccion nuevaDir = new Direccion(
                 UUID.randomUUID(),
                 command.calle(),
@@ -58,11 +57,9 @@ public class UserUpdateService implements UserUpdateUseCase {
                 command.tipo()
         );
 
-        // Creamos nueva lista basada en la anterior
         List<Direccion> nuevasDirecciones = new ArrayList<>(user.direcciones());
         nuevasDirecciones.add(nuevaDir);
 
-        // Reconstruimos el Record User
         User userActualizado = rebuildUserWithAddresses(user, nuevasDirecciones);
         userRepository.save(userActualizado);
     }

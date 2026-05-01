@@ -26,6 +26,8 @@ public interface UserUseCase {
 
     void deleteUser(UUID id);
 
+    void activateUser(UUID id);
+
     Optional<User> findById(UUID id);
     Optional<User> findByEmail(String email);
     List<User> findAll();

@@ -99,8 +99,16 @@ public class UserController {
                 .body(report);
     }
 
-    @DeleteMapping("/{id}")
+    @PatchMapping("/{id}/activate")
     @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void activateUser(@PathVariable UUID id) {
+        log.info("[UserController] - Petición para activar usuario ID: {}", id);
+        userUseCase.activateUser(id);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or @securityService.isOwner(authentication, #id)")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable UUID id) {
         log.info("[UserController] - Petición para eliminar (desactivar) usuario ID: {}", id);

@@ -11,24 +11,55 @@ const Navbar = () => {
   if (!isAuthenticated) return null;
 
   return (
-    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center shadow-lg">
-      <div className="flex gap-4 items-center">
-        <Link to="/dashboard" className="font-bold text-xl">CMS Client</Link>
+    <nav className="bg-white border-b border-gray-200 shadow-sm font-sans">
+      {/* Contenedor con el max-width y padding de Flowbite */}
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         
-        {/* Usamos el uuid de Redux para la URL */}
-        <Link to={`/profile/${uuid}`} className="hover:text-blue-300">Mi Perfil</Link>
-        
-        {role === 'ADMIN' && (
-          <Link to="/admin" className="bg-blue-600 px-3 py-1 rounded text-sm hover:bg-blue-500">Panel Admin</Link>
-        )}
+        {/* Lado Izquierdo: Logo + Links */}
+        <div className="flex items-center gap-8">
+          {/* Placeholder para tu Imagen/Logo */}
+          <Link to="/dashboard" className="flex items-center space-x-3">
+            <div className="h-8 w-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">
+              {/* <img src="logo.svg" className="h-8" alt="Logo" /> */}
+              C
+            </div>
+            <span className="self-center text-xl font-semibold tracking-tight text-gray-900">
+              CMS Client
+            </span>
+          </Link>
+
+          {/* Links de navegación con la fuente y color de Flowbite */}
+          <div className="hidden md:flex items-center gap-6">
+            <Link 
+              to={`/profile/${uuid}`} 
+              className="text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors"
+            >
+              Mi Perfil
+            </Link>
+
+            {role === 'ADMIN' && (
+              <Link 
+                to="/admin" 
+                className="text-sm font-bold text-white bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition-all shadow-sm"
+              >
+                Panel Admin
+              </Link>
+            )}
+          </div>
+        </div>
+
+        {/* Lado Derecho: Botón de Cerrar Sesión */}
+        <div className="flex items-center">
+          <button 
+            onClick={() => { dispatch(logout()); navigate('/login'); }} 
+            className="text-sm font-bold text-red-600 hover:text-white border border-red-600 hover:bg-red-600 px-4 py-2 rounded-lg transition-all"
+          >
+            Cerrar Sesión
+          </button>
+        </div>
+
       </div>
-      
-      <button onClick={() => { dispatch(logout()); navigate('/login'); }} 
-        className="bg-red-500 px-3 py-1 rounded text-sm hover:bg-red-600 transition-colors">
-        Cerrar Sesión
-      </button>
     </nav>
   );
 };
-
 export default Navbar;

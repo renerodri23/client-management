@@ -188,6 +188,30 @@ public class UserService implements UserUseCase {
         userRepository.save(deactivatedUser);
         log.info("[UserService] Usuario desactivado (borrado lógico) con ID: {}", id);
     }
+    @Override
+    public void activateUser(UUID id) {
+        User u = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+
+        User activatedUser = new User(
+                u.uuid(),
+                u.nombre(),
+                u.apellido(),
+                u.email(),
+                u.passwordHash(),
+                u.direcciones(),
+                u.documentosIdentidad(),
+                u.role(),
+                true,
+                null,
+                null,
+                null,
+                null
+        );
+
+        userRepository.save(activatedUser);
+        log.info("[UserService] Usuario reactivado con ID: {}", id);
+    }
 
     @Override
     public Optional<User> findById(UUID id) {
@@ -214,17 +238,14 @@ public class UserService implements UserUseCase {
         List<User> users = userRepository.findAll();
         StringBuilder sb = new StringBuilder();
 
-        // Cabecera con Auditoría y Direcciones
         sb.append("UUID,Nombre,Apellido,Email,Estado,Documentos,Direcciones,Creado_Por,Fecha_Creacion\n");
 
         for(User u : users) {
-            // Formatear Documentos
             String docs = u.documentosIdentidad().isEmpty() ? "N/A" :
                     u.documentosIdentidad().stream()
                     .map(d -> d.tipo() + ":" + d.valor())
                     .collect(Collectors.joining(" | "));
 
-            // Formatear Direcciones (NUEVO)
             String dirs = u.direcciones().isEmpty() ? "N/A" :
                     u.direcciones().stream()
                     .map(d -> d.tipo() + ": " + d.calle() + " (" + d.ciudad() + ")")
@@ -235,9 +256,9 @@ public class UserService implements UserUseCase {
                     .append(u.apellido()).append(",")
                     .append(u.email()).append(",")
                     .append(u.active() ? "ACTIVO" : "INACTIVO").append(",")
-                    .append("\"").append(docs).append("\",")      // Comillas por si hay comas internas
-                    .append("\"").append(dirs).append("\",")      // Comillas para direcciones
-                    .append(u.createdBy() != null ? u.createdBy() : "SYSTEM").append(",") // Auditoría
+                    .append("\"").append(docs).append("\",")
+                    .append("\"").append(dirs).append("\",")
+                    .append(u.createdBy() != null ? u.createdBy() : "SYSTEM").append(",")
                     .append(u.createdAt() != null ? u.createdAt().toString() : "N/A").append("\n");
         }
 

@@ -23,7 +23,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, Object>> handleRuntime(RuntimeException ex) {
         log.error("Runtime error: ", ex);
-        // Si el mensaje es el de credenciales, podrías mapearlo a un 401
         HttpStatus status = ex.getMessage().contains("incorrectos") ? HttpStatus.UNAUTHORIZED : HttpStatus.INTERNAL_SERVER_ERROR;
         return buildResponse(status, "Error de ejecución", ex.getMessage());
     }
@@ -48,8 +47,7 @@ public class GlobalExceptionHandler {
         body.put("status", HttpStatus.BAD_REQUEST.value());
         body.put("error", "Error de validación");
         body.put("message", "Existen campos con errores");
-        body.put("errors", fieldErrors); // Aquí enviamos el mapa de errores por campo
-
+        body.put("errors", fieldErrors);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 

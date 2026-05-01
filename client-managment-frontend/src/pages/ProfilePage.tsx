@@ -3,15 +3,14 @@ import api from '../api/axiosConfig';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { logout } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { useAlert } from '../context/AlertContext';
 
-// Agregamos la prop overrideUuid para cuando el Admin lo use
 const ProfilePage = ({ overrideUuid }: { overrideUuid?: string }) => {
-  const { uuid: myUuid, role: myRole } = useAppSelector((state) => state.auth);
+  const { uuid: myUuid } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { showAlert } = useAlert();
 
-  // PRIORIDAD: Si viene overrideUuid lo usamos (es Admin mirando a otro), 
-  // si no, usamos myUuid (es el usuario viendo su propio perfil)
   const targetUuid = overrideUuid || myUuid;
   const isAdminViewingOthers = !!overrideUuid && overrideUuid !== myUuid;
 
@@ -44,11 +43,13 @@ const ProfilePage = ({ overrideUuid }: { overrideUuid?: string }) => {
         nombre: userData.nombre,
         apellido: userData.apellido,
         email: userData.email,
-        role: userData.role // Mantenemos el rol que ya tiene el usuario
+        role: userData.role
       });
       setIsEditing(false);
-      alert("Perfil actualizado correctamente");
-    } catch (error) { alert("Error al actualizar"); }
+      showAlert("Perfil actualizado correctamente", 'success');
+    } catch (error) { 
+      showAlert("Error al actualizar: No tienes permisos o datos inválidos", "danger"); 
+    }
   };
 
   const handleAddAddress = async (e: React.FormEvent) => {
@@ -57,7 +58,7 @@ const ProfilePage = ({ overrideUuid }: { overrideUuid?: string }) => {
       await api.post(`/v1/users/${targetUuid}/addresses`, newAddress);
       setNewAddress({ calle: '', ciudad: '', departamento: '', tipo: 'CASA' });
       fetchUserData();
-    } catch { alert("Error al agregar dirección"); }
+    } catch { showAlert("Error al agregar dirección", "danger"); }
   };
 
   const handleAddDocument = async (e: React.FormEvent) => {
@@ -66,42 +67,55 @@ const ProfilePage = ({ overrideUuid }: { overrideUuid?: string }) => {
       await api.post(`/v1/users/${targetUuid}/documents`, newDoc);
       setNewDoc({ tipo: 'DUI', valor: '' });
       fetchUserData();
-    } catch { alert("Error al agregar documento"); }
+    } catch { showAlert("Error al agregar documento","danger"); }
   };
 
   const deleteAddress = async (addressUuid: string) => {
     if (window.confirm("¿Quitar dirección?")) {
-      await api.delete(`/v1/users/${targetUuid}/addresses/${addressUuid}`);
-      fetchUserData();
+      try {
+        await api.delete(`/v1/users/${targetUuid}/addresses/${addressUuid}`);
+        fetchUserData();
+      } catch { showAlert("No se pudo eliminar la dirección","danger"); }
     }
   };
 
   const deleteDoc = async (documentUuid: string) => {
     if (window.confirm("¿Quitar documento?")) {
-      await api.delete(`/v1/users/${targetUuid}/documents/${documentUuid}`);
-      fetchUserData();
+      try {
+        await api.delete(`/v1/users/${targetUuid}/documents/${documentUuid}`);
+        fetchUserData();
+      } catch { showAlert("No se pudo eliminar el documento","danger"); }
     }
   };
 
   const handleDeactivate = async () => {
+    if (!targetUuid) {
+      showAlert("Error: No se pudo identificar el usuario.","danger");
+      return;
+    }
+
     const msg = isAdminViewingOthers 
-      ? "¿Seguro que deseas desactivar la cuenta de este usuario?" 
-      : "¿Seguro que deseas desactivar TU cuenta? Se cerrará la sesión.";
+      ? `¿Seguro que deseas desactivar la cuenta de ${userData?.nombre || 'este usuario'}?` 
+      : "¿Seguro que deseas desactivar TU cuenta? Se cerrará la sesión de forma inmediata.";
     
     if (window.confirm(msg)) {
       try {
+        // El Backend ahora usa @securityService.isOwner(authentication, #id)
+        // por lo que el UUID es lo único que necesitamos enviar.
         await api.delete(`/v1/users/${targetUuid}`);
         
-        // Si soy yo mismo, me saca del sistema
         if (!isAdminViewingOthers) {
+          showAlert("Tu cuenta ha sido desactivada correctamente.","success");
           dispatch(logout());
           navigate('/login');
         } else {
-          // Si es el admin desactivando a otro, solo avisamos
-          alert("Usuario desactivado");
+          showAlert("Cuenta de usuario desactivada","success");
           fetchUserData(); 
         }
-      } catch { alert("Error al desactivar la cuenta"); }
+      } catch (error: any) {
+        console.error("Error al desactivar:", error.response?.data);
+        showAlert("Error: " + (error.response?.data?.message || "No autorizado"), "danger");
+      }
     }
   };
 

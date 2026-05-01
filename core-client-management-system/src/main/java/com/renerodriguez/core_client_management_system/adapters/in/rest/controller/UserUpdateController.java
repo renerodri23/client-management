@@ -3,14 +3,14 @@ package com.renerodriguez.core_client_management_system.adapters.in.rest.control
 import com.renerodriguez.core_client_management_system.adapters.in.rest.dto.CreateAddressRequest;
 import com.renerodriguez.core_client_management_system.adapters.in.rest.dto.CreateDocumentRequest;
 import com.renerodriguez.core_client_management_system.adapters.in.rest.dto.UserResponse;
-import com.renerodriguez.core_client_management_system.adapters.in.rest.mapper.UserRestMapper; // IMPORTANTE
-import com.renerodriguez.core_client_management_system.application.port.in.UserUseCase;      // IMPORTANTE
+import com.renerodriguez.core_client_management_system.adapters.in.rest.mapper.UserRestMapper;
+import com.renerodriguez.core_client_management_system.application.port.in.UserUseCase;
 import com.renerodriguez.core_client_management_system.application.port.in.UserUpdateUseCase;
 import com.renerodriguez.core_client_management_system.application.port.in.command.DeleteAddressCommand;
 import com.renerodriguez.core_client_management_system.application.port.in.command.DeleteDocumentCommand;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j; // Para el log.info
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
