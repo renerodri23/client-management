@@ -16,7 +16,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+/**
 
+ Controlador REST encargado de la actualización de usuarios.
+ Expone operaciones para:
+ Eliminar direcciones de un usuario
+ Eliminar documentos de un usuario
+ Agregar direcciones a un usuario
+ Agregar documentos a un usuario
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/users")

@@ -13,7 +13,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+/**
+ * Mapper encargado de convertir entre el modelo de dominio {@link User}
+ * y las entidades de persistencia {@link UserEntity}, así como sus objetos asociados.
+ *
+ * <p>Se encarga de transformar objetos del dominio hacia entidades JPA para su almacenamiento,
+ * y viceversa, manteniendo la separación entre la capa de dominio y la capa de infraestructura.</p>
+ *
+ * <p>Incluye el mapeo de:
+ * <ul>
+ *     <li>Direcciones ({@link Direccion} ↔ {@link DireccionEntity})</li>
+ *     <li>Documentos de identidad ({@link DocumentoIdentidad} ↔ {@link DocumentoEntity})</li>
+ * </ul>
+ * </p>
+ */
 @Component
 public class UserPersistenceMapper {
 

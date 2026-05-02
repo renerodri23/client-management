@@ -11,7 +11,31 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.*;
-
+/**
+ * Entidad JPA que representa la tabla "users" en la base de datos.
+ *
+ * <p>Contiene la información principal de un usuario del sistema, incluyendo datos personales,
+ * credenciales, relaciones con direcciones y documentos, así como metadatos de auditoría.</p>
+ *
+ * <p>Esta entidad es gestionada por JPA/Hibernate y soporta auditoría automática mediante
+ * {@link org.springframework.data.jpa.domain.support.AuditingEntityListener}.</p>
+ *
+ * <p>Relaciones:
+ * <ul>
+ *     <li>Un usuario puede tener múltiples {@link DireccionEntity}</li>
+ *     <li>Un usuario puede tener múltiples {@link DocumentoEntity}</li>
+ * </ul>
+ * </p>
+ *
+ * <p>Auditoría:
+ * <ul>
+ *     <li>createdAt: fecha de creación automática</li>
+ *     <li>updatedAt: última modificación automática</li>
+ *     <li>createdBy: usuario creador</li>
+ *     <li>updatedBy: usuario que modificó</li>
+ * </ul>
+ * </p>
+ */
 @Entity
 @Table(name="users")
 @NoArgsConstructor

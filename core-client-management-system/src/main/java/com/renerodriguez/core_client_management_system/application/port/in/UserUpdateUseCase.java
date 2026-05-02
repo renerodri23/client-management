@@ -6,7 +6,15 @@ import com.renerodriguez.core_client_management_system.application.port.in.comma
 import com.renerodriguez.core_client_management_system.application.port.in.command.DeleteDocumentCommand;
 
 import java.util.UUID;
-
+/**
+ * Puerto de entrada que define las operaciones para la actualización de información de usuarios.
+ * <p>
+ * Esta interfaz expone los casos de uso necesarios para modificar los datos suplementarios
+ * de un usuario, tales como la gestión de sus direcciones físicas y documentos de identidad.
+ * </p>
+ * * @author Rene Rodriguez
+ * @version 1.0
+ */
 public interface UserUpdateUseCase {
     void deleteAddress(DeleteAddressCommand command);
     void deleteDocument(DeleteDocumentCommand command);

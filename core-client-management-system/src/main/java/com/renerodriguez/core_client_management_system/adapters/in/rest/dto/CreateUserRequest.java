@@ -5,7 +5,17 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;
+/**
 
+ DTO de solicitud para la creación de un usuario.
+ @param nombre nombre del usuario; no puede estar vacío
+ @param apellido apellido del usuario; no puede estar vacío
+ @param email correo electrónico del usuario; debe ser válido y no puede estar vacío
+ @param password contraseña del usuario; debe tener al menos 8 caracteres y no puede estar vacía
+ @param direcciones lista de direcciones asociadas al usuario
+ @param documentos lista de documentos asociados al usuario
+ @param role rol asignado al usuario; no puede estar vacío
+ */
 public record CreateUserRequest(
         @NotBlank(message = "El nombre no puede estar vacío")
         String nombre,

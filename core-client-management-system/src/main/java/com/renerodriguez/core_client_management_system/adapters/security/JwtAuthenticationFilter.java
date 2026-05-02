@@ -14,7 +14,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-
+/**
+ * Filtro de autenticación basado en JWT que se ejecuta una vez por cada solicitud HTTP.
+ * <p>
+ * Este filtro intercepta las peticiones entrantes para validar el token JWT presente
+ * en el encabezado {@code Authorization}. Si el token es válido, establece la autenticación
+ * en el contexto de seguridad de Spring.
+ * <p>
+ * Se encarga de extraer el email del token, cargar los detalles del usuario y
+ * configurar el {@link SecurityContextHolder} con la información autenticada.
+ */
 @RequiredArgsConstructor
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {

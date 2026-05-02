@@ -18,7 +18,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+/**
 
+ Controlador REST encargado de la gestión de usuarios.
+ Expone operaciones para:
+ Crear usuarios
+ Actualizar usuarios
+ Consultar usuarios por ID y email
+ Listar todos los usuarios
+ Verificar existencia de email
+ Generar reporte de usuarios
+ Activar usuarios
+ Eliminar (desactivar) usuarios
+ */
 @Slf4j
 @RequiredArgsConstructor
 @RestController

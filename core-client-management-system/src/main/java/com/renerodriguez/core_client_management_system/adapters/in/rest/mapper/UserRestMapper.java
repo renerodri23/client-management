@@ -9,7 +9,23 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
-
+/**
+ * Mapper encargado de convertir objetos de la capa REST (DTOs)
+ * hacia comandos de la capa de aplicación, y viceversa.
+ *
+ * <p>Actúa como puente entre la capa de entrada (controllers REST)
+ * y la lógica de negocio, transformando requests en comandos
+ * y entidades de dominio en responses.</p>
+ *
+ * <p>Responsabilidades principales:
+ * <ul>
+ *     <li>Conversión de requests a comandos de creación y actualización de usuario</li>
+ *     <li>Conversión de requests de direcciones y documentos a comandos de aplicación</li>
+ *     <li>Mapeo del dominio {@link User} a {@link UserResponse}</li>
+ *     <li>Construcción de comandos para operaciones auxiliares (direcciones y documentos)</li>
+ * </ul>
+ * </p>
+ */
 @Component
 public class UserRestMapper {
 

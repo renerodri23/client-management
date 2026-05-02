@@ -5,7 +5,26 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
-
+/**
+ * Entidad JPA que representa la tabla "user_addresses" en la base de datos.
+ *
+ * <p>Modela las direcciones asociadas a un usuario del sistema.</p>
+ *
+ * <p>Cada dirección pertenece a un único {@link UserEntity} mediante una relación
+ * muchos-a-uno, permitiendo que un usuario tenga múltiples direcciones registradas.</p>
+ *
+ * <p>Campos principales:
+ * <ul>
+ *     <li>addressId: identificador único de la dirección</li>
+ *     <li>calle: calle de la dirección</li>
+ *     <li>ciudad: ciudad</li>
+ *     <li>departamento: departamento o región</li>
+ *     <li>tipoDireccion: tipo de dirección ({@link TipoDireccion})</li>
+ * </ul>
+ * </p>
+ *
+ * <p>La clave primaria se genera automáticamente si no se asigna antes de persistir.</p>
+ */
 @Entity
 @Table(name="user_addresses")
 @NoArgsConstructor

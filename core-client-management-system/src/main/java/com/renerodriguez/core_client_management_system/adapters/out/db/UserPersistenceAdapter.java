@@ -12,7 +12,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+/**
+ * Adaptador de persistencia para la entidad de usuario.
+ * <p>
+ * Esta clase implementa el puerto {@link UserRepository} y actúa como puente
+ * entre el dominio y la capa de acceso a datos, utilizando Spring Data JPA.
+ * Se encarga de convertir entre el modelo de dominio y la entidad de persistencia,
+ * así como de gestionar las operaciones CRUD relacionadas con usuarios.
+ * <p>
+ * También maneja la sincronización de las colecciones de direcciones y documentos
+ * asociados al usuario antes de su persistencia.
+ */
 @Component
 @RequiredArgsConstructor
 public class UserPersistenceAdapter implements UserRepository {

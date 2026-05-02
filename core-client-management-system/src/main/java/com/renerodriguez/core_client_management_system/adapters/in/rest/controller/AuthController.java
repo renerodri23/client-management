@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+/**
 
+ Controlador REST encargado de la autenticación de usuarios.
+ Expone operaciones relacionadas con el inicio de sesión y generación de tokens de acceso.
+ */
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor

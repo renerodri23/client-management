@@ -3,8 +3,20 @@ package com.renerodriguez.core_client_management_system.application.port.in.comm
 import java.util.List;
 import java.util.UUID;
 /**
- * Comando para actualizar la información de un usuario existente en el sistema de gestión de clientes.
- * Contiene el identificador del usuario a actualizar y los nuevos datos que se desean modificar, incluyendo su nombre, apellido, email, contraseña y dirección.
+ * Objeto de comando destinado a la actualización de los datos de un usuario existente.
+ * <p>
+ * Este record actúa como un Data Transfer Object (DTO) inmutable que transporta los cambios
+ * desde la capa de entrada (API/Web) hacia los casos de uso del dominio. Permite la
+ * modificación parcial o total de los atributos del usuario y sus colecciones asociadas.
+ * </p>
+ *
+ * @param userId      Identificador único del usuario que se desea modificar.
+ * @param nombre      Nuevo nombre del usuario (opcional).
+ * @param apellido    Nuevo apellido del usuario (opcional).
+ * @param email       Nueva dirección de correo electrónico (opcional, debe ser validada).
+ * @param direcciones Lista actualizada de comandos de dirección {@link DireccionesCommand}.
+ * @param documentos  Lista actualizada de comandos de documentos {@link DocumentoCommand}.
+ * @param role        Nuevo rol asignado al usuario en formato String.
  */
 public record UpdateUserCommand(
         UUID userId,

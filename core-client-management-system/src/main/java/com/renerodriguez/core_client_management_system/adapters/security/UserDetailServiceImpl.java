@@ -9,7 +9,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+/**
+ * Implementación de {@link UserDetailsService} para la carga de usuarios
+ * desde el repositorio de usuarios en el contexto de seguridad.
+ * <p>
+ * Esta clase se encarga de recuperar la información de un usuario a partir
+ * de su correo electrónico y adaptarla al modelo de {@link UserDetails}
+ * requerido por Spring Security.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserDetailServiceImpl implements UserDetailsService {

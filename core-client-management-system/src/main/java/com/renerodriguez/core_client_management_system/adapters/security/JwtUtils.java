@@ -14,7 +14,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
+/**
+ * Utilidad para la gestión de tokens JWT.
+ * <p>
+ * Esta clase proporciona métodos para generar, validar y extraer información
+ * de tokens JWT utilizados en el sistema de autenticación.
+ * Incluye la creación de tokens con roles, la verificación de su validez
+ * y la extracción de claims como el email y la fecha de expiración.
+ */
 @Component
 @Slf4j
 public class JwtUtils {

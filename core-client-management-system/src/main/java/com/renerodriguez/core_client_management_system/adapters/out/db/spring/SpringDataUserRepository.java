@@ -8,7 +8,17 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+/**
+ * Repositorio de Spring Data JPA para la entidad {@link UserEntity}.
+ * <p>
+ * Proporciona métodos de acceso a datos para la gestión de usuarios,
+ * incluyendo consultas personalizadas que cargan de forma anticipada
+ * las colecciones de direcciones y documentos asociados.
+ * <p>
+ * Extiende {@link JpaRepository} para ofrecer operaciones CRUD básicas
+ * y define métodos adicionales para búsquedas específicas por email
+ * y validaciones de existencia.
+ */
 public interface SpringDataUserRepository extends JpaRepository<UserEntity, UUID> {
 
     @Query("SELECT u FROM UserEntity u LEFT JOIN FETCH u.direcciones LEFT JOIN FETCH u.documentos WHERE u.email = :email")

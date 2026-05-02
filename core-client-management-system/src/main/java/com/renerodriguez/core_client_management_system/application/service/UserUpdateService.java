@@ -16,7 +16,83 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+/**
+ * Servicio de aplicación que implementa el caso de uso para la actualización específica de componentes de un usuario.
+ * <p>
+ * Esta clase se especializa en la gestión granular de colecciones asociadas al usuario,
+ * como direcciones y documentos, siguiendo los principios de inmutabilidad del dominio
+ * al reconstruir el objeto {@link User} cuando es necesario.
+ * </p>
+ *
+ * @author Rene Rodriguez
+ * @version 1.0
+ */
 
+/**
+ * Elimina una dirección específica del perfil de un usuario.
+ * <p>
+ * Busca al usuario por su identificador y remueve la dirección cuya UUID coincida con la
+ * proporcionada en el comando. La operación se realiza de forma transaccional.
+ * </p>
+ *
+ * @param command Objeto que contiene el UUID del usuario y el UUID de la dirección a eliminar.
+ * @throws RuntimeException si el usuario no existe en la persistencia.
+ */
+
+/**
+ * Elimina un documento de identidad específico del perfil de un usuario.
+ * <p>
+ * Localiza al usuario y filtra la lista de documentos para remover aquel que coincida
+ * con el identificador técnico proporcionado.
+ * </p>
+ *
+ * @param command Objeto que contiene el UUID del usuario y el UUID del documento a eliminar.
+ * @throws RuntimeException si el usuario no es encontrado.
+ */
+
+/**
+ * Agrega una nueva dirección a la colección existente del usuario.
+ * <p>
+ * Crea una nueva instancia de {@link Direccion} con un UUID aleatorio y reconstruye
+ * el registro del usuario incorporando la nueva lista para persistir el cambio.
+ * </p>
+ *
+ * @param command Datos de la nueva dirección y referencia del usuario.
+ */
+
+/**
+ * Adjunta un nuevo documento de identidad al usuario.
+ * <p>
+ * Genera una entidad de dominio {@link DocumentoIdentidad} inmutable y actualiza el
+ * agregado del usuario mediante la reconstrucción del record.
+ * </p>
+ *
+ * @param command Datos del documento y referencia del usuario.
+ */
+
+/**
+ * Método de utilidad para reconstruir el objeto User con una lista de direcciones actualizada.
+ * <p>
+ * Mantiene la integridad de los campos de auditoría y otros atributos inmutables
+ * mientras inyecta la nueva colección de direcciones.
+ * </p>
+ *
+ * @param u  Instancia original del usuario.
+ * @param ad Nueva lista de direcciones.
+ * @return Una nueva instancia de {@link User} con las direcciones actualizadas.
+ */
+
+/**
+ * Método de utilidad para reconstruir el objeto User con una lista de documentos actualizada.
+ * <p>
+ * Preserva el estado actual del usuario y sustituye únicamente la colección de
+ * documentos de identidad.
+ * </p>
+ *
+ * * @param u    Instancia original del usuario.
+ * * @param docs Nueva lista de documentos de identidad.
+ * @return Una nueva instancia de {@link User} con los documentos actualizados.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserUpdateService implements UserUpdateUseCase {

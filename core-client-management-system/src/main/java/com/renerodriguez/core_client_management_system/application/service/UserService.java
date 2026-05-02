@@ -20,10 +20,107 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+/**
+ * Implementación del servicio de aplicación para la gestión integral de usuarios.
+ * <p>
+ * Esta clase orquestra la lógica de negocio, validaciones de dominio, persistencia
+ * y generación de reportes. Implementa el puerto de entrada {@link UserUseCase}
+ * y asegura la consistencia de los datos mediante el uso de transacciones.
+ * </p>
+ *
+ * @author Rene Rodriguez
+ * @version 1.0
+ */
 
 /**
- * Servicio que implementa la lógica de negocio para la gestión de usuarios en el sistema de gestión de clientes.
- * Proporciona métodos para crear y actualizar usuarios, así como para generar reportes de usuarios
+ * Crea un nuevo usuario en el sistema.
+ * <p>
+ * Realiza validaciones exhaustivas (campos obligatorios, formato de email,
+ * existencia previa) y transforma los comandos de entrada en entidades de dominio.
+ * La contraseña se almacena cifrada mediante BCrypt.
+ * </p>
+ *
+ * @param command Objeto con los datos necesarios para la creación del usuario.
+ * @return El usuario creado y persistido con sus identificadores generados.
+ * @throws IllegalArgumentException si los datos de entrada son inválidos o el email ya existe.
+ */
+
+/**
+ * Actualiza la información de un usuario existente.
+ * <p>
+ * Permite la actualización parcial de los datos. Si no se envían listas de direcciones
+ * o documentos, se preservan los valores actuales del registro.
+ * </p>
+ *
+ * @param command Objeto que contiene el ID del usuario y los campos a modificar.
+ * @return El usuario con la información actualizada.
+ * @throws IllegalArgumentException si el usuario no existe o el nuevo email está en uso.
+ */
+
+/**
+ * Realiza un borrado lógico del usuario en el sistema.
+ * <p>
+ * En lugar de eliminar el registro físicamente, cambia el estado {@code active} a false.
+ * </p>
+ *
+ * @param id Identificador único del usuario a desactivar.
+ */
+
+/**
+ * Reactiva un usuario previamente desactivado.
+ *
+ * @param id Identificador único del usuario a activar.
+ */
+
+/**
+ * Busca un usuario por su identificador único.
+ *
+ * @param id UUID del usuario.
+ * @return Un {@link Optional} con el usuario encontrado o vacío si no existe.
+ */
+
+/**
+ * Busca un usuario por su dirección de correo electrónico.
+ *
+ * @param email Correo electrónico a buscar.
+ * @return Un {@link Optional} con el usuario correspondiente.
+ */
+
+/**
+ * Recupera la lista completa de usuarios registrados.
+ *
+ * @return Lista de todos los usuarios en el sistema.
+ */
+
+/**
+ * Verifica la existencia de un email en la base de datos.
+ *
+ * @param email Correo electrónico a verificar.
+ * @return {@code true} si el email ya está registrado.
+ */
+
+/**
+ * Genera un reporte consolidado de usuarios en formato CSV.
+ * <p>
+ * El reporte incluye información personal, estado, documentos de identidad,
+ * direcciones y metadatos de auditoría.
+ * </p>
+ *
+ * @return Un arreglo de bytes que representa el archivo CSV generado.
+ */
+
+/**
+ * Convierte una lista de comandos de dirección al modelo de dominio.
+ *
+ * @param commands Lista de comandos de entrada.
+ * @return Lista de entidades de dominio {@link Direccion}.
+ */
+
+/**
+ * Convierte una lista de comandos de documentos al modelo de dominio.
+ *
+ * * @param commands Lista de comandos de entrada.
+ * *@return Lista de entidades de dominio {@link DocumentoIdentidad}.
  */
 @Service
 @Transactional

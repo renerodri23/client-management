@@ -5,7 +5,24 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
-
+/**
+ * Entidad JPA que representa la tabla "user_documents" en la base de datos.
+ *
+ * <p>Modela los documentos de identidad asociados a un usuario del sistema.</p>
+ *
+ * <p>Cada documento está vinculado a un único {@link UserEntity} mediante una relación
+ * muchos-a-uno, permitiendo que un usuario tenga múltiples documentos.</p>
+ *
+ * <p>Campos principales:
+ * <ul>
+ *     <li>docId: identificador único del documento</li>
+ *     <li>tipo: tipo de documento ({@link TipoDocumentoIdentidad})</li>
+ *     <li>valor: número o valor del documento</li>
+ * </ul>
+ * </p>
+ *
+ * <p>La clave primaria se genera automáticamente si no se asigna antes de persistir.</p>
+ */
 @Entity
 @Table(name="user_documents")
 @Getter

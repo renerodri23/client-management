@@ -4,7 +4,17 @@ import java.util.List;
 
 /**
  * Comando para crear un nuevo usuario en el sistema de gestión de clientes.
- * Contiene toda la información necesaria para registrar un nuevo usuario, incluyendo su nombre, apellido, email, contraseña y dirección.
+ * <p>
+ * Este comando encapsula toda la información necesaria para registrar un usuario,
+ * incluyendo datos personales, credenciales de acceso, direcciones, documentos y rol asignado.
+ *
+ * @param nombre        el nombre del usuario
+ * @param apellido      el apellido del usuario
+ * @param email         el correo electrónico del usuario
+ * @param password      la contraseña del usuario
+ * @param direcciones   la lista de direcciones asociadas al usuario
+ * @param documentos    la lista de documentos asociados al usuario
+ * @param role          el rol asignado al usuario dentro del sistema
  */
 public record CreateUserCommand(
         String nombre,
