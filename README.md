@@ -90,3 +90,7 @@ Si desea replicar el entorno de desarrollo localmente:
      ```
 
 3. Acceder al sistema en: http://localhost:5173
+
+4. Para acceder como cuenta de Administrador utilice las siguientes credenciales
+   User: admin@sistema.com
+   Password: password123
