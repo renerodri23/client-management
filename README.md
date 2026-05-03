@@ -38,7 +38,7 @@ El proyecto ha sido desplegado utilizando una arquitectura de contenedores para 
 
 * **Instancia:** Amazon EC2 (Amazon Linux 2023).
 * **Orquestación:** Docker & Docker Compose.
-* **Acceso Público:** http://ec2-18-216-36-132.us-east-2.compute.amazonaws.com:5173/login
+* **Acceso Público:** http://ec2-3-22-167-120.us-east-2.compute.amazonaws.com:5173/login
 
 Se configuraron **Security Groups** en AWS para permitir el tráfico entrante en los puertos necesarios (5173 para Frontend y 8080 para API), además de la gestión de volúmenes para la persistencia de datos en MySQL.
 
@@ -82,7 +82,7 @@ Si desea replicar el entorno de desarrollo localmente:
 
 1. Clonar el repositorio:
    ```bash
-   git clone [https://github.com/renerodri23/client-management.git](https://github.com/renerodri23/client-management.git)
+   git clone https://github.com/renerodri23/client-management.git
 
 2. Levantar la infraestructura con Docker:
      ```bash
